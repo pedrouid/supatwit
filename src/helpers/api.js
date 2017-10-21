@@ -1,5 +1,18 @@
-import Twitter from 'twitter';
 import firebase from 'firebase';
+import axios from 'axios';
+
+/**
+ * Configuration for  api instance
+ * @type axios instance
+ */
+const api = axios.create({
+  baseURL: '/api',
+  timeout: 20000,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  }
+});
 
 /**
  * @desc validate and login user session
@@ -33,42 +46,9 @@ export const apiGetConfig = username =>
    * @param {Boolean} [destroy]
    * @return {Promise}
    */
-export const apiTwitterFollowers = (config, username, destroy) => {
-  const T = new Twitter(config);
-  const params = {
-    cursor: '-1',
-    screen_name: username,
-    count: 100
-  };
-  return new Promise((resolve, reject) => {
-    T.get('followers/ids', params, (err, data, response) => {
-      if (err) {
-        console.log(err);
-        reject(err);
-        return;
-      }
-      let count = {
-        success: 0,
-        error: 0
-      };
-      let message = destroy ? 'unfollowed' : 'followed';
-
-      for (let i = 0; i < data.ids.length; i++) {
-        const url = destroy ? 'friendships/destroy' : 'friendships/create';
-        let id = { id: data.ids[i] };
-
-        T.post(url, id, (err, response) => {
-          if (err) {
-            count.error += 1;
-            console.log(err[0].message);
-            reject(err[0].message);
-            return;
-          }
-          count.success += 1;
-          console.log(`${message} ${response.name}| Profile: https://twitter.com/${response.screen_name}`);
-        });
-      }
-      resolve(`Successfully ${message} ${count.success} users`);
-    });
+export const apiTwitterFollowers = (config, username, destroy) =>
+  api.post('https://wt-863e332a77d038d29fa50d15961b5367-0.run.webtask.io/twitter-followers', {
+    config,
+    username,
+    destroy
   });
-};

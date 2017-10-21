@@ -34,6 +34,7 @@ export const followersGetConfig = username => dispatch => {
 
 export const followersFollow = username => (dispatch, getState) => {
   const config = getState().followers.config;
+  config.access_token = config.access_token_key;
   dispatch({ type: FOLLOWERS_FOLLOW_REQUEST });
   apiTwitterFollowers(config, username, false)
     .then(user => dispatch({ type: FOLLOWERS_FOLLOW_SUCCESS }))
@@ -47,6 +48,7 @@ export const followersFollow = username => (dispatch, getState) => {
 
 export const followersUnfollow = username => (dispatch, getState) => {
   const config = getState().followers.config;
+  config.access_token = config.access_token_key;
   dispatch({ type: FOLLOWERS_UNFOLLOW_REQUEST });
   apiTwitterFollowers(config, username, true)
     .then(() => dispatch({ type: FOLLOWERS_UNFOLLOW_SUCCESS }))
