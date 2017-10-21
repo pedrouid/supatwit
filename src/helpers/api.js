@@ -6,7 +6,7 @@ import axios from 'axios';
  * @type axios instance
  */
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://wt-863e332a77d038d29fa50d15961b5367-0.run.webtask.io',
   timeout: 20000,
   headers: {
     'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const apiGetConfig = uid =>
  * @return {Promise}
  */
 export const apiTwitterDetails = config =>
-  api.post('https://wt-863e332a77d038d29fa50d15961b5367-0.run.webtask.io/twitter-name', {
+  api.post('/twitter-name', {
     config
   });
 
@@ -57,7 +57,7 @@ export const apiTwitterDetails = config =>
    * @return {Promise}
    */
 export const apiTwitterFollowers = (config, username, destroy) =>
-  api.post('https://wt-863e332a77d038d29fa50d15961b5367-0.run.webtask.io/twitter-followers', {
+  api.post('/twitter-followers', {
     config,
     username,
     destroy
