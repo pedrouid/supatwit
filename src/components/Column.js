@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledColumn = styled.div`
   width: 100%;
   height: 100%;
-  max-width: 400px;
+  max-width: ${({ maxWidth }) => `${maxWidth}px`};
   margin: 0 auto;
   display: flex;
   flex-grow: 1;
@@ -14,14 +14,19 @@ const StyledColumn = styled.div`
   flex-direction: column;
 `;
 
-const Column = ({ children, ...otherProps }) => (
-  <StyledColumn {...otherProps}>
+const Column = ({ children, maxWidth, ...otherProps }) => (
+  <StyledColumn maxWidth={maxWidth} {...otherProps}>
     {children}
   </StyledColumn>
 );
 
 Column.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  maxWidth: PropTypes.number
+};
+
+Column.defaultProps = {
+  maxWidth: 400
 };
 
 export default Column;

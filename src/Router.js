@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import firebase from 'firebase';
 import styled from 'styled-components';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Column from './components/Column';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Logout from './pages/Logout';
@@ -16,7 +15,7 @@ const StyledWrapper = styled.div`
 `;
 
 class Router extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const config = {
       apiKey: 'AIzaSyCq9-2kQarGIJmnWczGD6rOYikb9qNDb3w',
       authDomain: 'supatwit-bot.firebaseapp.com',
@@ -30,15 +29,13 @@ class Router extends Component {
   }
   render = () => (
     <StyledWrapper>
-      <Column>
-        <Switch>
-          <Route exact path="/" render={() => <Redirect to="/login" />} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/logout" component={Logout} />
-          <Route component={NotFound} />
-        </Switch>
-      </Column>
+      <Switch>
+        <Route exact path="/" render={() => <Redirect to="/login" />} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/logout" component={Logout} />
+        <Route component={NotFound} />
+      </Switch>
     </StyledWrapper>
   );
 }

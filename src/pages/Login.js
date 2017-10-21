@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import Column from '../components/Column';
 import Link from '../components/Link';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -9,8 +10,6 @@ import Wrapper from '../components/Wrapper';
 import Form from '../components/Form';
 import logo from '../assets/logo.svg';
 import { authLogin, authUpdateEmail, authUpdatePassword } from '../reducers/_auth';
-
-const StyledLogin = styled.div`width: 100%;`;
 
 const StyledForm = styled(Form)`padding: 25px;`;
 
@@ -22,7 +21,7 @@ class Login extends Component {
   };
   render() {
     return (
-      <StyledLogin>
+      <Column>
         <Link to="/">
           <StyledLogo src={logo} alt="App Logo" />
         </Link>
@@ -35,7 +34,7 @@ class Login extends Component {
             </Button>
           </StyledForm>
         </Wrapper>
-      </StyledLogin>
+      </Column>
     );
   }
 }

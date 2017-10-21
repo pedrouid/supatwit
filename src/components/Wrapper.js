@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Loader from './Loader';
+import Spinner from './Spinner';
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -10,7 +10,7 @@ const StyledWrapper = styled.div`
   align-items: center;
 `;
 
-const Wrapper = ({ children, fetching }) => <StyledWrapper>{fetching ? <Loader /> : children} </StyledWrapper>;
+const Wrapper = ({ children, fetching }) => <StyledWrapper>{fetching ? <Spinner /> : children} </StyledWrapper>;
 
 Wrapper.propTypes = {
   children: PropTypes.node.isRequired,

@@ -58,13 +58,10 @@ export const authUpdatePassword = password => ({
 // -- Reducer --------------------------------------------------------------- //
 const INITIAL_STATE = {
   fetching: false,
-  uid: '',
-  email: '',
-  password: '',
-  profile: ''
+  uid: ''
 };
 
-export const authReducer = (state = INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AUTH_SIGNIN_REQUEST:
     case AUTH_SIGNOUT_REQUEST:

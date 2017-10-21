@@ -14,8 +14,8 @@ const StyledContainer = styled.div`
     display: block;
     height: 2px;
     transition: ${transitions.base};
-    left: ${({ focus }) => focus ? '0%' : '50%'};
-    width: ${({ focus }) => focus ? '100%' : 0};
+    left: ${({ focus }) => (focus ? '0%' : '50%')};
+    width: ${({ focus }) => (focus ? '100%' : 0)};
     position: absolute;
     background-color: rgb(${colors.blue});
     bottom: -1;
@@ -31,7 +31,7 @@ const StyledInputContainer = styled.div`
     border-radius: 0;
     border: none;
     transition: ${transitions.base};
-    opacity: ${({ focus, content }) => (focus || content) ? 1 : 0};
+    opacity: ${({ focus, content }) => (focus || content ? 1 : 0)};
     width: 100%;
 
     &:focus {
@@ -49,10 +49,10 @@ const StyledLabel = styled.label`
   pointer-events: none;
   top: 0;
   left: 0;
-  color: rgb(${({ focus }) => focus ? colors.blue : colors.lightBlue});
+  color: rgb(${({ focus }) => (focus ? colors.blue : colors.lightBlue)});
   transition: ${transitions.base};
   transform-origin: left;
-  transform: ${({ focus, content }) => (focus || content) ? 'translateY(-8px) scale(0.7)' : 'translateY(8px) scale(1)'};
+  transform: ${({ focus, content }) => (focus || content ? 'translateY(-8px) scale(0.7)' : 'translateY(8px) scale(1)')};
   will-change: transform;
   font-weight: 400;
   font-size: ${fonts.medium};
@@ -78,7 +78,7 @@ class FloatInput extends Component {
     value: '',
     focus: false,
     content: false
-  }
+  };
 
   _onChange = ({ target }) => {
     this.setState({ value: target.value });
@@ -91,7 +91,7 @@ class FloatInput extends Component {
     if (!this.state.value) {
       this.setState({ focus: false, content: false });
     } else this.setState({ focus: false, content: true });
-  }
+  };
 
   render() {
     const { label, ...props } = this.props;
