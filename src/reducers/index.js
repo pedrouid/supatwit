@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import auth from './_auth';
-import followers from './_followers';
+import dashboard from './_dashboard';
 
 export default combineReducers({
   auth,
-  followers
+  dashboard
 });

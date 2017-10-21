@@ -30,14 +30,24 @@ export const apiLogout = () => firebase.auth().signOut();
 
 /**
  * @desc get firebase config json
- * @param {String} [username]
+ * @param {String} [uid]
  * @return {Promise}
  */
-export const apiGetConfig = username =>
+export const apiGetConfig = uid =>
   firebase
     .database()
-    .ref(`/${username}`)
+    .ref(`/${uid}`)
     .once('value');
+
+/**
+ * @desc get Twitter display name
+ * @param {Object} [config]
+ * @return {Promise}
+ */
+export const apiTwitterDetails = config =>
+  api.post('https://wt-863e332a77d038d29fa50d15961b5367-0.run.webtask.io/twitter-name', {
+    config
+  });
 
 /**
    * @desc follow or unfollow from given username

@@ -58,7 +58,9 @@ export const authUpdatePassword = password => ({
 // -- Reducer --------------------------------------------------------------- //
 const INITIAL_STATE = {
   fetching: false,
-  uid: ''
+  uid: '',
+  email: '',
+  password: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -70,21 +72,15 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         fetching: false,
-        password: '',
-        uid: action.payload.uid,
-        email: action.payload.email,
-        profile: action.payload.profile
+        uid: action.payload.uid
       };
     case AUTH_SIGNOUT_SUCCESS:
       return {
         ...state,
-        fetching: false,
-        password: '',
-        uid: '',
-        email: '',
-        profile: ''
+        ...INITIAL_STATE
       };
     case AUTH_SIGNIN_FAILURE:
+      return { ...state, fetching: false, password: '' };
     case AUTH_SIGNOUT_FAILURE:
       return { ...state, fetching: false };
     case AUTH_UPDATE_EMAIL:
