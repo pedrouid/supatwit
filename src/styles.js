@@ -6,7 +6,8 @@ export const colors = {
   lightGrey: '238, 238, 238',
   darkGrey: '128, 128, 128',
   blue: '0, 172, 237',
-  lightBlue: '197, 242, 255',
+  lightBlue: '90, 200, 232',
+  lighterBlue: '197, 242, 255',
   gold: '246, 203, 71',
   green: '79, 180, 128',
   red: '221, 69, 65'

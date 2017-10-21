@@ -7,8 +7,7 @@ import Link from '../components/Link';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Spinner from '../components/Spinner';
-import profileImage from '../assets/profile_image.jpg';
-import { followersGetConfig, followersFollow, followersUnfollow } from '../reducers/_followers';
+import { dashboardGetConfig, dashboardFollowersFollow, dashboardFollowersUnfollow } from '../reducers/_dashboard';
 import { colors, responsive, transitions } from '../styles';
 
 const StyledDashboard = styled.div`
@@ -78,14 +77,13 @@ const StyledModal = styled.div`
 
 class Dashboard extends Component {
   state = {
-    username: 'heysilvergirl',
     followUsername: '',
     followHashtag: '',
     likeHashtag: '',
     unlikeHashtag: ''
   };
   componentDidMount() {
-    this.props.followersGetConfig(this.state.username);
+    this.props.dashboardGetConfig();
   }
   render() {
     return (
@@ -99,17 +97,17 @@ class Dashboard extends Component {
             </Link>
           </StyledTopRight>
           <StyledHeader>
-            <img src={profileImage} alt={this.state.username} />
+            <img src={this.props.profile_image} alt={this.props.username} />
             <div>
-              <h4>Hey Silver Girl</h4>
-              <p>{`@${this.state.username}`}</p>
+              <h4>{this.props.name}</h4>
+              <p>{`@${this.props.username}`}</p>
             </div>
           </StyledHeader>
           <StyledFlex>
             <Button
               round
               disabled={this.props.fetching}
-              onClick={() => this.props.followersUnfollow(this.state.username)}
+              onClick={() => this.props.dashboardFollowersUnfollow(this.props.username)}
             >
               Unfollow 100
             </Button>
@@ -124,7 +122,7 @@ class Dashboard extends Component {
             <Button
               round
               disabled={this.props.fetching}
-              onClick={() => this.props.followersFollow(this.state.followUsername)}
+              onClick={() => this.props.dashboardFollowersFollow(this.state.followUsername)}
             >
               Follow 100
             </Button>
@@ -139,7 +137,7 @@ class Dashboard extends Component {
             <Button
               round
               disabled={this.props.fetching}
-              onClick={() => this.props.hashtagFollow(this.state.followHashtag)}
+              onClick={() => this.props.dashboardHashtagFollow(this.state.followHashtag)}
             >
               Follow 100
             </Button>
@@ -151,7 +149,11 @@ class Dashboard extends Component {
               type="text"
               onValueChange={likeHashtag => this.setState({ likeHashtag })}
             />
-            <Button round disabled={this.props.fetching} onClick={() => this.props.hashtagLike(this.state.likeHashtag)}>
+            <Button
+              round
+              disabled={this.props.fetching}
+              onClick={() => this.props.dashboardHashtagLike(this.state.likeHashtag)}
+            >
               Like 100
             </Button>
           </StyledFlex>
@@ -165,7 +167,7 @@ class Dashboard extends Component {
             <Button
               round
               disabled={this.props.fetching}
-              onClick={() => this.props.hashtagUnlike(this.state.unlikeHashtag)}
+              onClick={() => this.props.dashboardHashtagUnlike(this.state.unlikeHashtag)}
             >
               Unlike 100
             </Button>
@@ -180,19 +182,26 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  followersGetConfig: PropTypes.func.isRequired,
-  followersFollow: PropTypes.func.isRequired,
-  followersUnfollow: PropTypes.func.isRequired,
+  dashboardGetConfig: PropTypes.func.isRequired,
+  dashboardFollowersFollow: PropTypes.func.isRequired,
+  dashboardFollowersUnfollow: PropTypes.func.isRequired,
   fetching: PropTypes.bool.isRequired,
-  config: PropTypes.object.isRequired
+  config: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  profile_image: PropTypes.string.isRequired
 };
 
-const reduxProps = ({ followers }) => ({
-  fetching: followers.fetching
+const reduxProps = ({ dashboard }) => ({
+  fetching: dashboard.fetching,
+  config: dashboard.config,
+  name: dashboard.name,
+  username: dashboard.username,
+  profile_image: dashboard.profile_image
 });
 
 export default connect(reduxProps, {
-  followersGetConfig,
-  followersFollow,
-  followersUnfollow
+  dashboardGetConfig,
+  dashboardFollowersFollow,
+  dashboardFollowersUnfollow
 })(Dashboard);
